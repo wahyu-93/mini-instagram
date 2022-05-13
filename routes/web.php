@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,5 @@ Route::get('/user/edit', [UserController::class, 'edit'])->name('user.profile.ed
 Route::put('/user/edit', [UserController::class, 'update'])->name('user.profile.update');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/post', PostController::class);
