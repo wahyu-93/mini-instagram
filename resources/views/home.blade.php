@@ -14,6 +14,12 @@
                         </div>
                     @endif
 
+                    <p>
+                        <x-avatar :user="$user"></x-avatar>
+                    </p>
+                    <h5>{{ $user->fullname }}</h5>
+                    <p>{{ $user->bio }}</p>
+
                     {{ __('You are logged in!') }}
                 </div>
             </div>

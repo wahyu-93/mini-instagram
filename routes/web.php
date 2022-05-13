@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +20,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('/user/edit', [UserController::class, 'edit'])->name('user.profile.edit');
+Route::put('/user/edit', [UserController::class, 'update'])->name('user.profile.update');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
