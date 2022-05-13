@@ -12,11 +12,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">Images</label>
-
-                            <div class="col-md-6">
-                                <input type="file" name="image" id="image">
-                            </div>
+                            <x-uploadimage name="image"></x-uploadimage>
                         </div>
 
                         <div class="row mb-3">
