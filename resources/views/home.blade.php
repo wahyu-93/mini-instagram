@@ -20,6 +20,8 @@
                     <h5>{{ $user->fullname }}</h5>
                     <p>{{ $user->bio }}</p>
 
+                    <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">Upload</a><br>
+
                     {{ __('You are logged in!') }}
                 </div>
             </div>

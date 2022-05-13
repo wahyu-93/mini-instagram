@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -34,7 +35,26 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $request->validate([
+            'caption'   => 'max:250',
+            'image'     => 'image|mimes:jpg,jpeg,png',
+        ]);
+
+        $imageName = $request->image;
+        if ($request->image){
+            $postImage = $request->image;
+            $imageName = $user->username . time() . '.' . $postImage->extension();
+            $postImage->move(public_path('images/post'), $imageName);
+        };
+
+        $user->posts()->create([
+            'image'    => $imageName,
+            'caption'  => $request->caption
+        ]);
+
+        return redirect()->route('home');
     }
 
     /**
