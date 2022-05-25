@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,5 +41,13 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('home');
+    }
+
+    public function show($username)
+    {
+        $user = User::where('username', $username)->first();
+        if(!$user) abort(403);
+
+        return view('user.profile', compact('user'));
     }
 }

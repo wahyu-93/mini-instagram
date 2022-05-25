@@ -22,9 +22,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/user/edit', [UserController::class, 'edit'])->name('user.profile.edit');
-Route::put('/user/edit', [UserController::class, 'update'])->name('user.profile.update');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('@{username}', [UserController::class, 'show'])->name('user.show');
 
-Route::resource('/post', PostController::class);
+Route::middleware('auth')->group(function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.profile.edit');
+    Route::put('/user/edit', [UserController::class, 'update'])->name('user.profile.update');
+
+    Route::resource('/post', PostController::class);
+
+});
+
+
