@@ -21,8 +21,16 @@
                     <p>{{ $user->bio }}</p>
 
                     <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">Upload</a><br>
+                    <br>
 
-                    {{ __('You are logged in!') }}
+                    <h3>FEED</h3>
+                    @foreach ($posts as $post)
+                        <li>
+                            <img src="{{ asset('images/post/' . $post->image) }}" width="200px" height="200px" alt="{{ $post->caption }}">
+                            <a href="{{ route('post.edit', [$post->id]) }}">Edit</a>
+                        </li>
+                    @endforeach
+
                 </div>
             </div>
         </div>
