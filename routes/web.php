@@ -25,6 +25,8 @@ Auth::routes();
 
 Route::get('@{username}', [UserController::class, 'show'])->name('user.show');
 
+Route::get('/follow/{following_id}', [UserController::class, 'follow'])->name('user.follow');
+
 Route::middleware('auth')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

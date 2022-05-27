@@ -43,4 +43,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+    
+    public function follower()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    public function cekFollowing($following_id)
+    {
+        if($this->following->contains($following_id)){
+            $this->following()->detach($following_id);
+            $message = ['message' => 'UNFOLLOW'];
+        }
+        else{
+            $this->following()->attach($following_id);
+            $message = ['message' => 'FOLLOW'];
+        };
+
+        return $message;
+    }
 }

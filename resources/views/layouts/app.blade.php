@@ -23,8 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    Beranda
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -52,6 +52,14 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="{{ route('post.create') }}" class="nav-link">Upload Post</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('user.show', [Auth::user()->username]) }}" class="nav-link">Profile</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}

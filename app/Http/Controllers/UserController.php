@@ -50,4 +50,13 @@ class UserController extends Controller
 
         return view('user.profile', compact('user'));
     }
+
+    public function follow($following_id)
+    {
+        $user = Auth::user();
+        
+        $message = $user->cekFollowing($following_id);
+
+        return response()->json($message);
+    }
 }
