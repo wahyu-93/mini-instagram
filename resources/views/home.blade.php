@@ -13,6 +13,11 @@
                         <div>
                             <img src="{{ asset('images/post/' . $post->image) }}" width="300px" height="200px" alt="{{ $post->caption }}">
                             <p>
+                                <button class="btn btn-primary btn-sm mt-2" onclick="like({{ $post->id }})">
+                                    {{ dd($post->is_like()) }}
+                                </button>
+                            </p>
+                            <p>
                                 <a href="{{ route('user.show', [$post->user->username]) }}">{{ '@' . $post->user->username }}</a>
                                 <span>{{ $post->created_at }}</span>                                
                             </p>
@@ -28,4 +33,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function like(post_id)
+    {
+        console.log(post_id)
+    }
+</script>
 @endsection
