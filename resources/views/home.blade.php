@@ -10,9 +10,17 @@
                 <div class="card-body">
                     <h3>FEED</h3>
                     @foreach ($posts as $post)
-                        <li>
-                            <img src="{{ asset('images/post/' . $post->image) }}" width="200px" height="200px" alt="{{ $post->caption }}">
-                        </li>
+                        <div>
+                            <img src="{{ asset('images/post/' . $post->image) }}" width="300px" height="200px" alt="{{ $post->caption }}">
+                            <p>
+                                <a href="{{ route('user.show', [$post->user->username]) }}">{{ '@' . $post->user->username }}</a>
+                                <span>{{ $post->created_at }}</span>                                
+                            </p>
+
+                            <p >
+                                {{ $post->caption }}
+                            </p>
+                        </div>
                     @endforeach
 
                 </div>

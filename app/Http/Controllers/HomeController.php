@@ -26,7 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $posts = Post::where('user_id', $user->id)->get();
+
+        $list_id = $user->following()->pluck('follows.following_id')->toArray();
+        $list_id[] = $user->id;
+
+        $posts = Post::wherein('user_id', $list_id)->orderBy('created_at', 'desc')->get();
             
         return view('home', compact('user', 'posts'));
     }
