@@ -8,8 +8,8 @@
                 <div class="card-header">{{ '@' . auth()->user()->username }}</div>
 
                 <div class="card-body">
-                    <h3>FEED</h3>
-                    @foreach ($posts as $post)
+                    <h3>FEED @isset($querySearch) "{{ $querySearch }}" @endisset</h3>
+                    @forelse ($posts as $post)
                         <div>
                             <img src="{{ asset('images/post/' . $post->image) }}" width="300px" height="200px" alt="{{ $post->caption }}" ondblclick="like({{ $post->id }})">
                             <p>
@@ -26,7 +26,9 @@
                                 {{ $post->caption }}
                             </p>
                         </div>
-                    @endforeach
+                    @empty
+                        <p>Tidak Ditemukan...</p>
+                    @endforelse
 
                 </div>
             </div>

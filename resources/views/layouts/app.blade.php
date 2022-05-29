@@ -53,12 +53,22 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <form action="{{ route('user.search') }}" method="GET">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="" name="query">
+                                        <button class="btn btn-outline-secondary btn-sm" type="submit">Search</button>
+                                    </div>
+                                </form>
+                            </li>
+
+                            <li class="nav-item">
                                 <a href="{{ route('post.create') }}" class="nav-link">Upload Post</a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="{{ route('user.show', [Auth::user()->username]) }}" class="nav-link">Profile</a>
                             </li>
+
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

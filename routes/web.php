@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,7 @@ Auth::routes();
 
 Route::get('@{username}', [UserController::class, 'show'])->name('user.show');
 
+Route::get('/search', [HomeController::class, 'search'])->name('user.search');
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -39,7 +41,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/follow/{following_id}', [UserController::class, 'follow'])->name('user.follow');
 
     //like and unlike
-    Route::get('/like/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');
+    Route::get('/like/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');    
 });
 
 
