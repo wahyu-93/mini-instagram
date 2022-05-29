@@ -22,7 +22,7 @@
                                 <span>{{ $post->created_at }}</span>                                
                             </p>
 
-                            <p >
+                            <p class="caption">
                                 {{ $post->caption }}
                             </p>
                         </div>
@@ -52,5 +52,11 @@
             btnLike.className = classText
         });
     }
+
+    // cari # dari caption
+    document.querySelectorAll('.caption').forEach(function(el){
+        let renderText = el.innerHTML.replace(/#(\w+)/g, "<a href='/search?query=%23$1'>#$1</a>")
+        el.innerHTML = renderText
+    })
 </script>
 @endsection

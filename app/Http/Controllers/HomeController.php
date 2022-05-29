@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $querySearch = $request->input('query');
 
-        $posts = Post::where('caption', 'like' , '%'. $querySearch .'%')->get();
+        $posts = Post::where('caption', 'like' , '%'. $querySearch .'%')->orderBy('created_at', 'desc')->get();
 
         return view('home', compact('posts', 'querySearch'));
 
