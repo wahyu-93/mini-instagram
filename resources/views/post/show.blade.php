@@ -35,8 +35,10 @@
                     @foreach ($post->comments as $comment)
                         <p>
                             {{ $comment->body }} - 
-                            <a href="{{ route('user.show', [$comment->user->username]) }}">
-                                {{ '@'.$comment->user->username }}
+                            <a href="{{ route('user.show', [$comment->user->username]) }}">{{ '@'.$comment->user->username }}</a>
+                            - 
+                            <a href="{{ route('comment.edit', [$comment->id]) }}">
+                                Edit
                             </a>
                         </p>
                     @endforeach
