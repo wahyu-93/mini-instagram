@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function(){
 
     //like and unlike
     Route::get('/like/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');    
+
+    // comments
+    Route::post('/comment/{post_id}', [CommentController::class, 'post'])->name('comment.post');
+    Route::get('/comment/{comment_id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
+    Route::put('/comment/{comment_id}', [CommentController::class, 'update'])->name('comment.update');
+    Route::delete('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
+
 });
 
 
