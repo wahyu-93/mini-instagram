@@ -42,6 +42,5 @@ class HomeController extends Controller
         $posts = Post::with('user', 'likes')->where('caption', 'like' , '%'. $querySearch .'%')->orderBy('created_at', 'desc')->get();
 
         return view('home', compact('posts', 'querySearch'));
-
     }
 }

@@ -10,22 +10,7 @@
                 <div class="card-body">
                     <h3>FEED @isset($querySearch) "{{ $querySearch }}" @endisset</h3>
                     @forelse ($posts as $post)
-                        <div>
-                            <img src="{{ asset('images/post/' . $post->image) }}" width="300px" height="200px" alt="{{ $post->caption }}" ondblclick="like({{ $post->id }})">
-                            <p>
-                                <button class="btn btn-primary btn-sm mt-2" onclick="like({{ $post->id }})" id="btn-like-{{ $post->id }}">
-                                    {{ ($post->is_like() ? 'Unlike' : 'Like') }}
-                                </button>
-                            </p>
-                            <p>
-                                <a href="{{ route('user.show', [$post->user->username]) }}">{{ '@' . $post->user->username }}</a>
-                                <span>{{ $post->created_at }}</span>                                
-                            </p>
-
-                            <p class="caption">
-                                {{ $post->caption }}
-                            </p>
-                        </div>
+                        <x-post :post="$post"></x-post>
                     @empty
                         <p>Tidak Ditemukan...</p>
                     @endforelse
@@ -36,27 +21,5 @@
     </div>
 </div>
 
-<script>
-    function like(post_id)
-    {
-        const btnLike = document.getElementById('btn-like-' + post_id) 
-
-        fetch('/like/' + post_id)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.message)
-
-            let btnText = (data.message == 'like') ? 'Unlike' : 'Like'
-            let classText  = (data.message == 'like') ? 'btn btn-danger btn-sm mt-2' : 'btn btn-primary btn-sm mt-2' 
-            btnLike.innerText = btnText
-            btnLike.className = classText
-        });
-    }
-
-    // cari # dari caption
-    document.querySelectorAll('.caption').forEach(function(el){
-        let renderText = el.innerHTML.replace(/#(\w+)/g, "<a href='/search?query=%23$1'>#$1</a>")
-        el.innerHTML = renderText
-    })
-</script>
+<script src="{{ asset('js/feed.js') }}"></script>
 @endsection

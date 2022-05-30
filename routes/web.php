@@ -45,11 +45,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/like/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');    
 
     // comments
-    Route::post('/comment/{post_id}', [CommentController::class, 'post'])->name('comment.post');
+    Route::post('/comment/{post_id}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/comment/{comment_id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
     Route::put('/comment/{comment_id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
-
 });
 
 
