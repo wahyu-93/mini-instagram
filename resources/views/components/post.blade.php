@@ -1,7 +1,7 @@
 <div>
     <img src="{{ asset('images/post/' . $post->image) }}" width="300px" height="200px" alt="{{ $post->caption }}" ondblclick="like({{ $post->id }})">
     <p>
-        <button class="btn {{ ($post->is_like() ? 'btn-danger' : 'btn-primary') }} btn-sm mt-2" onclick="like({{ $post->id }})" id="btn-like-{{ $post->id }}">
+        <button class="btn {{ ($post->is_like() ? 'btn-danger' : 'btn-primary') }} btn-sm mt-2" onclick="like({{ $post->id }})" id="post-like-{{ $post->id }}">
             {{ ($post->is_like() ? 'Unlike' : 'Like') }}
         </button>
 
@@ -13,6 +13,6 @@
     </p>
 
     <p class="caption">
-        {{ $post->caption }}
+        {{ $post->caption }}    
     </p>
 </div>

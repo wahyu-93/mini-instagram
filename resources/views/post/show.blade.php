@@ -39,14 +39,20 @@
     
                             @if(Auth::user()->id == $comment->user_id)
                                 - 
-                                <a href="{{ route('comment.edit', [$comment->id]) }}">
+                                <a href="{{ route('comment.edit', [$comment->id]) }}" style="text-decoration: none">
                                     Edit
                                 </a>
+                            
                                 -
-                                <a href="{{ route('comment.delete', [$comment->id]) }}">
+                                <a href="{{ route('comment.delete', [$comment->id]) }}" style="text-decoration: none">
                                     Hapus
                                 </a>
                             @endif
+                            
+                            -
+                            <a onclick="like({{ $comment->id }}, 'comment')" id="comment-like-{{ $comment->id }}" style="cursor: pointer">
+                                {{ ($comment->is_like() ? 'Unlike' : 'Like') }}
+                            </a>
                         </p>
                     @endforeach
 

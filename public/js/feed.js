@@ -1,8 +1,8 @@
-function like(post_id)
+function like(post_id, type="post")
 {
-    const btnLike = document.getElementById('btn-like-' + post_id) 
+    let btnLike = document.getElementById(type+'-like-' + post_id) 
 
-    fetch('/like/' + post_id)
+    fetch('/like/' +type+ '/' + post_id)
     .then(response => response.json())
     .then(data => {
         console.log(data.message)
@@ -10,7 +10,10 @@ function like(post_id)
         let btnText = (data.message == 'like') ? 'Unlike' : 'Like'
         let classText  = (data.message == 'like') ? 'btn btn-danger btn-sm mt-2' : 'btn btn-primary btn-sm mt-2' 
         btnLike.innerText = btnText
-        btnLike.className = classText
+        
+        if(type=="post"){
+            btnLike.className = classText
+        }
     });
 }
 

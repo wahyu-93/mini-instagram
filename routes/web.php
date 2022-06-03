@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/follow/{following_id}', [UserController::class, 'follow'])->name('user.follow');
 
     //like and unlike
-    Route::get('/like/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');    
+    Route::get('/like/{type}/{post_id}', [LikeController::class, 'toggleLike'])->name('user.like');    
 
     // comments
     Route::post('/comment/{post_id}', [CommentController::class, 'store'])->name('comment.store');
