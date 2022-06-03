@@ -34,10 +34,25 @@ class CommentController extends Controller
 
     public function update(Request $request, Comment $comment)
     {
+        
+        if(Auth::user()->id != $comment->user_id){
+            abort(403);
+        };
+     
         $comment->update([
             'body'  => $request->input('body')
         ]);
 
         return redirect()->route('post.show', [$comment->post->id]);
+    }
+
+    public function delete($id)
+    {
+        $comment = Comment::findOrFail($id);
+        
+        $comment->delete();
+
+        return redirect()->route('post.show', [$comment->post_id]);
+
     }
 }

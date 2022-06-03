@@ -36,10 +36,17 @@
                         <p>
                             {{ $comment->body }} - 
                             <a href="{{ route('user.show', [$comment->user->username]) }}">{{ '@'.$comment->user->username }}</a>
-                            - 
-                            <a href="{{ route('comment.edit', [$comment->id]) }}">
-                                Edit
-                            </a>
+    
+                            @if(Auth::user()->id == $comment->user_id)
+                                - 
+                                <a href="{{ route('comment.edit', [$comment->id]) }}">
+                                    Edit
+                                </a>
+                                -
+                                <a href="{{ route('comment.delete', [$comment->id]) }}">
+                                    Hapus
+                                </a>
+                            @endif
                         </p>
                     @endforeach
 
