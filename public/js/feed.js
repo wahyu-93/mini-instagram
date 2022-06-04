@@ -1,7 +1,8 @@
 function like(post_id, type="post")
 {
     let btnLike = document.getElementById(type+'-like-' + post_id) 
-
+    let count = document.getElementById(type+'-count-'+post_id)
+    
     fetch('/like/' +type+ '/' + post_id)
     .then(response => response.json())
     .then(data => {
@@ -14,6 +15,17 @@ function like(post_id, type="post")
         if(type=="post"){
             btnLike.className = classText
         }
+
+        let currentCount = 0
+        if(data.message == 'like'){
+            currentCount = parseInt(count.innerText) + 1
+        }
+        else {
+            currentCount = parseInt(count.innerText) - 1
+        }
+
+        console.log(currentCount)
+        count.innerText = currentCount
     });
 }
 

@@ -32,7 +32,7 @@
                     </form>
                     <hr>
                     
-                    @foreach ($post->comments as $comment)
+                    @foreach ($comments as $comment)
                         <p>
                             {{ $comment->body }} - 
                             <a href="{{ route('user.show', [$comment->user->username]) }}">{{ '@'.$comment->user->username }}</a>
@@ -53,6 +53,7 @@
                             <a onclick="like({{ $comment->id }}, 'comment')" id="comment-like-{{ $comment->id }}" style="cursor: pointer">
                                 {{ ($comment->is_like() ? 'Unlike' : 'Like') }}
                             </a>
+                            <span id="comment-count-{{ $comment->id }}">{{ $comment->likes_count }}</span>
                         </p>
                     @endforeach
 

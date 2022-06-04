@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,8 +68,11 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        $post->load('comments.user');
-        return view('post.show', compact('post'));
+        $post->loadCount('likes');
+        
+        $comments = Comment::with('user')->with('likes')->withCount('likes')->where('post_id', $id)->orderBy('created_at', 'desc')->get();
+        
+        return view('post.show', compact('post', 'comments'));
     }
 
     /**

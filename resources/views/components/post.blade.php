@@ -4,6 +4,7 @@
         <button class="btn {{ ($post->is_like() ? 'btn-danger' : 'btn-primary') }} btn-sm mt-2" onclick="like({{ $post->id }})" id="post-like-{{ $post->id }}">
             {{ ($post->is_like() ? 'Unlike' : 'Like') }}
         </button>
+        <span id="post-count-{{ $post->id }}">{{ $post->likes_count }}</span>
 
         <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-primary btn-sm mt-2">Komentar</a>
     </p>

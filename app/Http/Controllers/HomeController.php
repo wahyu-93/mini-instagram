@@ -30,8 +30,8 @@ class HomeController extends Controller
         $list_id = $user->following()->pluck('follows.following_id')->toArray();
         $list_id[] = $user->id;
 
-        $posts = Post::with('user', 'likes')->wherein('user_id', $list_id)->orderBy('created_at', 'desc')->get();
-            
+        $posts = Post::with('user', 'likes')->withCount('likes')->wherein('user_id', $list_id)->orderBy('created_at', 'desc')->get();
+
         return view('home', compact('user', 'posts'));
     }
 
@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $querySearch = $request->input('query');
 
-        $posts = Post::with('user', 'likes')->where('caption', 'like' , '%'. $querySearch .'%')->orderBy('created_at', 'desc')->get();
+        $posts = Post::with('user', 'likes')->withCount('likes')->where('caption', 'like' , '%'. $querySearch .'%')->orderBy('created_at', 'desc')->get();
 
         return view('home', compact('posts', 'querySearch'));
     }
