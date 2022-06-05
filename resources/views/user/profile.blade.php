@@ -42,7 +42,9 @@
                     @foreach ($user->posts as $post)
                         <div class="card card-primary mb-3">
                             <div class="card-body">
-                                <img src="{{ asset('images/post/' . $post->image) }}" width="100%" height="512px" alt="{{ $post->caption }}" class="mb-3">
+                                <a href="{{ route('post.show', $post) }}">
+                                    <img src="{{ asset('images/post/' . $post->image) }}" width="100%" height="512px" alt="{{ $post->caption }}" class="mb-3">
+                                </a>
                                
                                 @if($user->id === Auth()->user()->id)
                                     <a href="{{ route('post.edit', [$post->id]) }}" style="text-decoration: none;" class="btn btn-danger btn-sm">Edit Post</a>

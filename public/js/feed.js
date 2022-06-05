@@ -25,7 +25,12 @@ function like(post_id, type="post")
         }
 
         console.log(currentCount)
-        count.innerText = currentCount + ' Menyukai'
+        if(type=="post"){
+            count.innerText = currentCount + ' Menyukai'
+        }
+        else {
+            count.innerText = currentCount
+        }
     });
 }
 

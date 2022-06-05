@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">Edit Post</div>
+                <div class="card-header">Komentar Post</div>
 
                 <div class="card-body">
                     <x-post :post="$post"></x-post>
@@ -30,11 +30,19 @@
                     @foreach ($comments as $comment)
                         <div class="card card.primary mb-2">
                             <div class="card-body">
-                                <p class="mb-0">
-                                    <a href="{{ route('user.show', [$comment->user->username]) }}" style="text-decoration: none">{{ '@'.$comment->user->username }}</a>
-                                </p>
+                                <div class="d-flex">
+                                    <div class="me-2">
+                                        <x-avatar :user="$comment->user" size="45"></x-avatar>
+                                    </div>
 
-                                <div class="bg-light p-2 rounded-pill">
+                                    <div>
+                                        <a href="{{ route('user.show', [$comment->user->username]) }}" style="text-decoration: none">{{ '@'.$comment->user->username }}</a>
+                                        <p class="text-muted">{{ $comment->created_at->diffForhumans() }}</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="bg-light p-2">
                                     {{ $comment->body }} 
                                 </div>
 

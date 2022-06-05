@@ -68,7 +68,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        $post->loadCount('likes');
+        $post->loadCount('likes')->loadCount('comments');
         
         $comments = Comment::with('user', 'likes')->withCount('likes')->where('post_id', $id)->orderBy('created_at', 'desc')->get();
         
