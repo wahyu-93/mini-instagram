@@ -70,7 +70,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->loadCount('likes');
         
-        $comments = Comment::with('user')->with('likes')->withCount('likes')->where('post_id', $id)->orderBy('created_at', 'desc')->get();
+        $comments = Comment::with('user', 'likes')->withCount('likes')->where('post_id', $id)->orderBy('created_at', 'desc')->get();
         
         return view('post.show', compact('post', 'comments'));
     }

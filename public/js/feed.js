@@ -25,7 +25,7 @@ function like(post_id, type="post")
         }
 
         console.log(currentCount)
-        count.innerText = currentCount
+        count.innerText = currentCount + ' Menyukai'
     });
 }
 
