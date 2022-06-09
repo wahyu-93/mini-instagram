@@ -69,6 +69,9 @@
                                 <a href="{{ route('user.show', [Auth::user()->username]) }}" class="nav-link">Profile</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="{{ route('komen.notif') }}" class="nav-link">Notifs <span class="badge bg-primary">0</span></a>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

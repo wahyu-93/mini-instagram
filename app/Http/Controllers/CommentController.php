@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Notification;
+use App\Models\Post;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -21,6 +23,8 @@ class CommentController extends Controller
             'post_id'   => $post_id,
             'body'      => $request->input('body')
         ]);
+
+        $this->notify($user, $post_id);
 
         return redirect()->back();
     }
@@ -43,6 +47,8 @@ class CommentController extends Controller
             'body'  => $request->input('body')
         ]);
 
+
+
         return redirect()->route('post.show', [$comment->post->id]);
     }
 
@@ -54,5 +60,19 @@ class CommentController extends Controller
 
         return redirect()->route('post.show', [$comment->post_id]);
 
+    }
+
+    private function notify($user, $post_id)
+    {
+        $target_user = Post::findOrFail($post_id)->user_id;
+        
+        // jika user mengomen postnya sendiri tidak usah dimasukkan kedalam notif
+        if($user->id != $target_user){
+            Notification::create([
+                'post_id'   => $post_id,
+                'user_id'   => $target_user,
+                'message'   => "Post Anda Dikomentari Oleh ". $user->username
+            ]);
+        }
     }
 }

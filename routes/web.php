@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotifController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -49,6 +50,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/comment/{comment_id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
     Route::put('/comment/{comment}', [CommentController::class, 'update'])->name('comment.update');
     Route::get('/comment/{comment_id}/delete', [CommentController::class, 'delete'])->name('comment.delete');
+
+    // notif 
+    Route::get('/notif', [NotifController::class, 'notifKomentar'])->name('komen.notif');
 });
 
 
