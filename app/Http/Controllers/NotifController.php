@@ -11,7 +11,15 @@ class NotifController extends Controller
     {
         $user = auth()->user()->id;
 
-        $notifs = Notification::where('user_id', $user)->get(); 
+        $notifs = Notification::where('user_id', $user)->paginate(10);
         return view('user.notif', compact('notifs'));
+    }
+
+    public function notifKomentarSeen()
+    {
+        $user = auth()->user()->id;
+        $notifs = Notification::where('user_id', $user)->update(['seen' => true]);
+
+        return ['msg' => 'sukses'];
     }
 }
