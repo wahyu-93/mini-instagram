@@ -70,7 +70,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('komen.notif') }}" class="nav-link">Notifs <span class="badge bg-primary">0</span></a>
+                                <a href="{{ route('komen.notif') }}" class="nav-link">Notifs <span class="badge bg-primary" id="notif_count" style="display: none">0</span></a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -104,5 +104,22 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        fetch('/notif/count')
+        .then(response => response.json())
+        .then(data => {
+            if(data.total==0){
+                document.getElementById('notif_count').style.display = "none"
+            }
+            else {
+                document.getElementById('notif_count').style.display = "inline"
+                document.getElementById('notif_count').innerText = data.total 
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    </script>
 </body>
 </html>

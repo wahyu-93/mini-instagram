@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Auth;
 
 class NotifController extends Controller
 {
@@ -21,5 +22,11 @@ class NotifController extends Controller
         $notifs = Notification::where('user_id', $user)->update(['seen' => true]);
 
         return ['msg' => 'sukses'];
+    }
+
+    public function notifCount()
+    {
+        $total = Auth::user()->notifications()->where('seen', 0)->count();
+        return ['total' => $total];
     }
 }
