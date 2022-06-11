@@ -21,7 +21,19 @@
                         
                         <h5>{{ $user->fullname }}</h5>
                         <p>{{ $user->bio }}</p>
-                        
+
+                        <div class="d-flex justify-content-center">
+                            <div id="following" class="mb-3 pt-2 border px-5 rounded">
+                                <p class="mb-0">Follwowing</p>
+                                <p>{{ $user->following()->count() }}</p>
+                            </div>
+
+                            <div id="follower" class="mb-3 pt-2 border px-5 rounded">
+                                <p class="mb-0">Follower</p>
+                                <p>{{ $user->follower()->count() }}</p>
+                            </div>
+                        </div>
+
                         <div class="mb-4">
                             @if($user->id == Auth()->user()->id)    
                                 <a href="{{ route('post.create') }}" class="btn btn-primary">Upload</a>
