@@ -14,39 +14,52 @@
                         </div>
                     @endif
 
-                    <div class="text-center">
-                        <p>
-                            <x-avatar :user="$user"></x-avatar>
-                        </p>
+                    <div class="d-flex justify-content-around">
+                        <div id="avatarProfile">
+                            <p>
+                                <x-avatar :user="$user"></x-avatar>
+                            </p>
+                        </div>
+
+                        <div id="profileUser">
+                            <div class="px-4">
+                                <h5 class="mb-0">{{ $user->fullname }}</h5>
+                                @if($user->id == Auth()->user()->id)    
+                                    <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">Upload</a>
+                                @endif
+            
+                                @if($user->id == Auth()->user()->id)
+                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-primary btn-sm">Update Profile</a>                        
+                                @else
+                                    <button class="{{ Auth::user()->following->contains($user->id) ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm' }}" onclick="follow({{ $user->id }}, this)">
+                                        {{ Auth::user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
+                                    </button> 
+                                @endif                        
+                            </div>
+                            
+                            <div class="d-flex">    
+                                <div id="postingan" class="pt-1 px-4">
+                                    <p class="mb-0">Postingan</p>
+                                    <p class="text-center">0</p>
+                                </div>
+
+                                <div id="following" class="pt-1 px-4">
+                                    <p class="mb-0">Follwowing</p>
+                                    <p class="text-center">{{ $user->following()->count() }}</p>
+                                </div>
+                                
+                                <div id="follower" class="pt-1 px-4">
+                                    <p class="mb-0">Follower</p>
+                                    <p class="text-center">{{ $user->follower()->count() }}</p>
+                                </div>
+                            </div>
+
+                            <div class="px-4">
+                                <p class="mb-0">{{ $user->bio }}</p>
+                            </div>
+
+                        </div>
                         
-                        <h5>{{ $user->fullname }}</h5>
-                        <p>{{ $user->bio }}</p>
-
-                        <div class="d-flex justify-content-center">
-                            <div id="following" class="mb-3 pt-2 border px-5 rounded">
-                                <p class="mb-0">Follwowing</p>
-                                <p>{{ $user->following()->count() }}</p>
-                            </div>
-
-                            <div id="follower" class="mb-3 pt-2 border px-5 rounded">
-                                <p class="mb-0">Follower</p>
-                                <p>{{ $user->follower()->count() }}</p>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            @if($user->id == Auth()->user()->id)    
-                                <a href="{{ route('post.create') }}" class="btn btn-primary">Upload</a>
-                            @endif
-        
-                            @if($user->id == Auth()->user()->id)
-                                <a href="{{ route('user.profile.edit') }}" class="btn btn-primary">Update Profile</a>                        
-                            @else
-                                <button class="{{ Auth::user()->following->contains($user->id) ? 'btn btn-danger' : 'btn btn-primary' }}" onclick="follow({{ $user->id }}, this)">
-                                    {{ Auth::user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
-                                </button> 
-                            @endif                        
-                        </div>
                     </div>
                     <hr>
 

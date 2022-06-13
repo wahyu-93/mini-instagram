@@ -1,3 +1,11 @@
+// infinite scroll
+
+window.scroll = function(){
+    let scroolHeight = window.body.scroolHeight;
+    let scrollPoint = window  
+    console.log('load more')
+}
+
 function like(post_id, type="post")
 {
     let btnLike = document.getElementById(type+'-like-' + post_id) 
