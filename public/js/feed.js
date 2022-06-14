@@ -1,10 +1,35 @@
 // infinite scroll
 
-window.scroll = function(){
-    let scroolHeight = window.body.scroolHeight;
-    let scrollPoint = window  
-    console.log('load more')
+let postTime = ''
+let lastPostTime = ''
+let lastFetch = ''
+
+window.onscroll = function(){
+    const BODYHEIGHT = document.body.scrollHeight
+    const SCROLLPOINT = window.scrollY + window.innerHeight
+
+    if (SCROLLPOINT >= (BODYHEIGHT - 100)){
+    
+
+        // nangkap nilai time terakhir
+        postTime = document.getElementsByClassName('post-time')
+        lastPostTime = postTime[postTime.length - 1].value
+
+        // fetch data dengan mengirim params time
+        if(lastFetch != lastPostTime){
+            fetch('loadmore/'+lastPostTime)
+            .then(response => response.json())
+            .then(data => {
+                console.log('load more')
+                console.log(data)
+
+                lastFetch = lastPostTime
+            })
+            .catch(err => console.log(err))
+        }
+    }
 }
+
 
 function like(post_id, type="post")
 {

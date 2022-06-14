@@ -11,6 +11,7 @@
                     <h3>FEED @isset($querySearch) "{{ $querySearch }}" @endisset</h3>
                     @forelse ($posts as $post)
                         <x-post :post="$post"></x-post>
+                        <input type="hidden" class="post-time" value="{{ strtotime($post->created_at) }}">
                     @empty
                         <p>Tidak Ditemukan...</p>
                     @endforelse

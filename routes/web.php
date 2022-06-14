@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/notif', [NotifController::class, 'notifKomentar'])->name('komen.notif');
     Route::get('/notif/seen', [NotifController::class, 'notifKomentarSeen'])->name('komen.notif.seen');
     Route::get('/notif/count', [NotifController::class, 'notifCount'])->name('notif.count');
+
+    // loadmore
+    Route::get('/loadmore/{time}', [HomeController::class, 'loadmore'])->name('loadmore');
 });
 
 
