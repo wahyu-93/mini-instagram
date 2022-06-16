@@ -7,11 +7,13 @@
             <div class="card">
                 <div class="card-header">Dashoard</div>
 
-                <div class="card-body">
+                <div class="card-body" id="post-wrapper">
                     <h3>FEED @isset($querySearch) "{{ $querySearch }}" @endisset</h3>
                     @forelse ($posts as $post)
-                        <x-post :post="$post"></x-post>
-                        <input type="hidden" class="post-time" value="{{ strtotime($post->created_at) }}">
+                        <div>
+                            <x-post :post="$post"></x-post>
+                            <input type="hidden" class="post-time" value="{{ strtotime($post->created_at) }}">
+                        </div>
                     @empty
                         <p>Tidak Ditemukan...</p>
                     @endforelse

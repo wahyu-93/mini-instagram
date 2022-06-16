@@ -2,32 +2,48 @@
 
 let postTime = ''
 let lastPostTime = ''
-let lastFetch = ''
+let lastFetch = '0'
 
 window.onscroll = function(){
     const BODYHEIGHT = document.body.scrollHeight
     const SCROLLPOINT = window.scrollY + window.innerHeight
 
-    if (SCROLLPOINT >= (BODYHEIGHT - 100)){
+    // nangkap nilai time terakhir
+    postTime = document.getElementsByClassName('post-time')
+    lastPostTime = postTime[postTime.length - 1].value
     
-
-        // nangkap nilai time terakhir
-        postTime = document.getElementsByClassName('post-time')
-        lastPostTime = postTime[postTime.length - 1].value
-
+    if (SCROLLPOINT >= BODYHEIGHT){
+    
         // fetch data dengan mengirim params time
+        console.log(lastFetch)
+        console.log(lastPostTime)
         if(lastFetch != lastPostTime){
             fetch('loadmore/'+lastPostTime)
             .then(response => response.json())
             .then(data => {
                 console.log('load more')
-                console.log(data)
+                console.log(data.post)
 
                 lastFetch = lastPostTime
+                console.log(lastFetch)
+        
+                for(let i = 0; i < data.post.length; i++){
+                    let newPost = renderPost(data.post[i])
+                    document.getElementById('post-wrapper').insertAdjacentHTML('beforeend', newPost)
+                }
+
             })
             .catch(err => console.log(err))
         }
     }
+}
+
+function renderPost(post)
+{
+    return `<div>
+                <img src="/images/post/${post.image}" width="100%" height="512px" alt="${post.caption}" ondblclick="like(${post.id})" class="mb-3">
+                <p>${(post.caption!=null) ? post.caption : ""}</p>
+            </div>`
 }
 
 
