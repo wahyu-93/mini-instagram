@@ -38,6 +38,9 @@
 
                         <div class="row mb-3">
                             <x-uploadimage name="avatar"></x-uploadimage>
+                            <div class="text-center">
+                                <img id="previewImg" src="" alt="" style="width: 250px; height: 250px;">
+                            </div>
                         </div>
 
 
@@ -54,4 +57,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function preview()
+    {
+        document.getElementById('previewImg').src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
 @endsection
