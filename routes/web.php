@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/notif/count', [NotifController::class, 'notifCount'])->name('notif.count');
 
     // loadmore
-    Route::get('/loadmore/{time}', [HomeController::class, 'loadmore'])->name('loadmore');
 });
+Route::get('/loadmore/{time}', [HomeController::class, 'loadmore'])->name('loadmore');
 
 

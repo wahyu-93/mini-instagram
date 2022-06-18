@@ -2,31 +2,27 @@
 
 let postTime = ''
 let lastPostTime = ''
-let lastFetch = '0'
+let lastFetch = ''
 
 window.onscroll = function(){
-    const BODYHEIGHT = document.body.scrollHeight
-    const SCROLLPOINT = window.scrollY + window.innerHeight
+    const bodyHeights = document.body.scrollHeight
+    const scrollPoint = window.scrollY + window.innerHeight
 
     // nangkap nilai time terakhir
     postTime = document.getElementsByClassName('post-time')
     lastPostTime = postTime[postTime.length - 1].value
     
-    if (SCROLLPOINT >= BODYHEIGHT){
-    
+    if (scrollPoint >= bodyHeights){
         // fetch data dengan mengirim params time
-        console.log(lastFetch)
-        console.log(lastPostTime)
+
         if(lastFetch != lastPostTime){
+            lastFetch = lastPostTime
             fetch('loadmore/'+lastPostTime)
             .then(response => response.json())
             .then(data => {
                 console.log('load more')
                 console.log(data.post)
-
-                lastFetch = lastPostTime
-                console.log(lastFetch)
-        
+                        
                 for(let i = 0; i < data.post.length; i++){
                     let newPost = renderPost(data.post[i])
                     document.getElementById('post-wrapper').insertAdjacentHTML('beforeend', newPost)
@@ -38,12 +34,52 @@ window.onscroll = function(){
     }
 }
 
+function getAvatar(user)
+{
+    let avatar_url = user.avatar != null ? "images/avatar/"+user.avatar : "https://ui-avatars.com/api/?size=128&name="+user.username
+
+    return `<img class="rounded-circle" src="${avatar_url}" alt="${user.avatar}" width="40" height="40" class="rounded-circle">`
+}
+
 function renderPost(post)
 {
-    return `<div>
-                <img src="/images/post/${post.image}" width="100%" height="512px" alt="${post.caption}" ondblclick="like(${post.id})" class="mb-3">
-                <p>${(post.caption!=null) ? post.caption : ""}</p>
-            </div>`
+    return `<div class="card card-primary mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="me-2">
+                            ${getAvatar(post.user)}
+                        </div>
+
+                        <div>
+                            <a href="/@${post.user.username}" style="text-decoration: none">@${post.user.username}</a>
+                            <p class="text-muted mb-0">${post.created_at}</p>                                
+                        </div>
+                    </div>
+    
+                    <img src="/images/post/${post.image}" width="100%" height="512px" alt="${post.caption}" ondblclick="like(${post.id})" class="mb-3">
+                   
+                    <div class="d-flex justify-content-between">
+                        <p id="post-count-${post.id}" class="mb-0">${post.likes_count} <span>Menyukai</span></p>
+                        <p id="post-count-${post.id}" class="mb-0 float-end">${post.comments_count} <span>Komentar</span></p>
+                    </div>
+                    
+                    <hr class="mb-0 mt-0">
+                    
+                    
+                    <p class="mb-0">
+                        <button class="btn ${post.is_like_btn} btn-sm mt-2" onclick="like(${post.id})" id="post-like-${post.id}">
+                             ${post.is_like}
+                        </button>
+                
+                        <a href="/post/${post.id}" class="btn btn-primary btn-sm mt-2">Komentar</a>
+                    </p>
+                
+                    <p class="caption mb-0">
+                        ${(post.caption!=null) ? post.caption : ""}    
+                    </p>
+                </div>
+            </div>
+            <input type="hidden" class="post-time" value="${post.post_time}">`
 }
 
 

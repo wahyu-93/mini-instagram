@@ -13,13 +13,16 @@
 
                         <div class="row mb-3">
                             <x-uploadimage name="image"></x-uploadimage>
+                            <img id="previewImg" src="" alt="">
                         </div>
 
                         <div class="row mb-3">
                             <label for="caption" class="col-md-4 col-form-label text-md-end">Caption Kamu</label>
+
                             <div class="col-md-6">
                                 <textarea name="caption" id="caption" class="form-control"></textarea>
                             </div>
+
                         </div>
 
 
@@ -36,4 +39,9 @@
         </div>
     </div>
 </div>
+<script>
+    function preview(){
+        document.getElementById("previewImg").src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
 @endsection

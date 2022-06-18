@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -54,10 +55,10 @@ class HomeController extends Controller
 
         $posts = Post::with('user', 'likes')->withCount('likes')->withCount('comments')
                     ->wherein('user_id', $list_id)
-                    ->whereTime('created_at', '<', Carbon::parse((int)$time))
+                    ->where('created_at', '<', Carbon::parse((int)$time))
                     ->orderBy('created_at', 'desc')
                     ->take(3)->get();
     
-        return ['post'  => $posts];
+        return ['post'  => PostResource::collection($posts)];
     }
 }
